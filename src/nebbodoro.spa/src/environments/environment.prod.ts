@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: null
+  apiUrl: "https://cmd-nebbodoro-api.azurewebsites.net/"
 };

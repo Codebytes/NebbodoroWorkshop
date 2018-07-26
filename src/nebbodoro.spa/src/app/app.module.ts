@@ -9,7 +9,6 @@ import { HttpServiceService } from './pomodoro/http-service.service';
 import { AppComponent } from './app.component';
 import { PomodoroComponent } from './pomodoro/pomodoro.component';
 import { HomeComponent } from './home/home.component';
-import { RuntimeSettingService } from './runtime-setting.service';
 import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
@@ -34,8 +33,7 @@ const routes: Routes = [
     FormsModule
   ],
   providers: [
-    HttpServiceService,
-    RuntimeSettingService   
+    HttpServiceService
   ],
   bootstrap: [AppComponent]
 })

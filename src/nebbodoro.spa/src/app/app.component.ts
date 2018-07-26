@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { RuntimeSettingService } from './runtime-setting.service';
-
 
 @Component({
   selector: 'app-root',
@@ -11,7 +9,5 @@ export class AppComponent {
   /**
    *
    */
-  constructor(private runTimeSettingService: RuntimeSettingService) {
-    this.runTimeSettingService.init();
-  }
+  constructor() {  }
 }
