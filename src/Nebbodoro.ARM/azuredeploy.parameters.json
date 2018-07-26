@@ -8,8 +8,14 @@
     "names-nebbodoro-api": {
       "value": "cmd-nebbodoro-api"
     },
-    "names-nebbodoro-api-ai": {
-      "value": "cmd-nebbodoro-api-ai"
+    "names-nebbodoro-portal": {
+        "value": "cmd-nebbodoro-portal"
+    },
+    "names-nebbodoro-portal-sp": {
+        "value": "cmd-nebbodoro-portal-sp"
+    },
+    "names-nebbodoro-ai": {
+      "value": "cmd-nebbodoro-ai"
     },
     "names-nebbodoro-sqlsvr": {
       "value": "cmd-nebbodoro-sqlsvr-01"

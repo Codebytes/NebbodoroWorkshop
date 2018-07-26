@@ -6,7 +6,7 @@ import {RoundProgressEase} from 'angular-svg-round-progressbar';
 import { HttpServiceService } from './http-service.service';
 import { IPomodoro } from '../models/Pomodoro';
 import { map } from 'rxjs/operator/map';
-import { RuntimeSettingService } from '../runtime-setting.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-pomodoro',
@@ -35,7 +35,7 @@ export class PomodoroComponent implements OnInit {
 
   pomodoros: IPomodoro[];
   
-  constructor(private _ease: RoundProgressEase, private route: ActivatedRoute, private router: Router, private http: HttpServiceService, private runtimeSettingService: RuntimeSettingService) {    
+  constructor(private _ease: RoundProgressEase, private route: ActivatedRoute, private router: Router, private http: HttpServiceService) {    
     for (let prop in _ease) {
       if (prop.toLowerCase().indexOf('ease') > -1) {
         this.animations.push(prop);
@@ -63,21 +63,10 @@ export class PomodoroComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.runtimeSettingService.isInitialized){
-      this.http.getPomodoros(this.currentUserEmail).subscribe(data => {
-        this.pomodoros = data;
-        console.log(data);
-      });
-    }
-    else {
-      setTimeout(() => {
-        this.http.getPomodoros(this.currentUserEmail).subscribe(data => {
-          this.pomodoros = data;
-          console.log(data);
-        });
-      }, 500);
-    }
-    
+    this.http.getPomodoros(this.currentUserEmail).subscribe(data => {
+      this.pomodoros = data;
+      console.log(data);
+    });    
   }
 
 

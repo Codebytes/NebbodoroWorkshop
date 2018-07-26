@@ -15,10 +15,11 @@
     "lib": [
       "es2016",
       "dom"
-    ]
+    ],
+    "module": "es2015"
   },
   "include": [
     "src/**/*.ts",
-    "node_modules/angular-bootstrap-md/**/*.ts",
+    "node_modules/angular-bootstrap-md/**/*.ts"
   ]
 }
