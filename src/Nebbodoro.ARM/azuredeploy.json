@@ -5,19 +5,31 @@
     "names-nebbodoro-api-sp": {
       "type": "string",
       "metadata": {
-        "description": ""
+        "description": "The name of the back-end app service plan"
       }
     },
     "names-nebbodoro-api": {
       "type": "string",
       "metadata": {
-        "description": ""
+        "description": "The name of the back-end app service"
       }
     },
-    "names-nebbodoro-api-ai": {
+    "names-nebbodoro-portal": {
+       "type": "string",
+       "metadata": {
+            "description": "The name of the front-end app service"
+        }
+    },
+    "names-nebbodoro-portal-sp": {
+       "type": "string",
+       "metadata": {
+            "description": "The name of the front-end app service plan"
+        }
+    },
+    "names-nebbodoro-ai": {
       "type": "string",
       "metadata": {
-        "description": "The name to give the Application Insights instance for the API layer"
+        "description": "The name to give the Application Insights instance"
       }
     },
     "names-nebbodoro-sqlsvr": {
@@ -136,11 +148,11 @@
     },
     {
       "apiVersion": "2014-04-01",
-      "name": "[parameters('names-nebbodoro-api-ai')]",
+      "name": "[parameters('names-nebbodoro-ai')]",
       "type": "Microsoft.Insights/components",
       "location": "[resourceGroup().location]",
       "tags": {
-        "displayName": "[parameters('names-nebbodoro-api-ai')]",
+        "displayName": "[parameters('names-nebbodoro-ai')]",
         "Tier": "Back-end"
       },
       "dependsOn": [
@@ -151,7 +163,7 @@
       }
     },
     {
-      "apiVersion": "2015-08-01",
+      "apiVersion": "2016-08-01",
       "name": "[parameters('names-nebbodoro-api')]",
       "type": "Microsoft.Web/sites",
       "location": "[resourceGroup().location]",
@@ -166,7 +178,10 @@
       ],
       "properties": {
         "name": "[parameters('names-nebbodoro-api')]",
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms/', parameters('names-nebbodoro-api-sp'))]"
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms/', parameters('names-nebbodoro-api-sp'))]",
+        "siteConfig":{
+          "httpsOnly": true
+        }
       },
       "resources": [
         {
@@ -189,12 +204,65 @@
           "name": "appSettings",
           "dependsOn": [
             "[resourceId('Microsoft.Web/Sites/', parameters('names-nebbodoro-api'))]",
-            "[resourceId('Microsoft.insights/components/', parameters('names-nebbodoro-api-ai'))]"
+            "[resourceId('Microsoft.insights/components/', parameters('names-nebbodoro-ai'))]"
           ],
           "properties": {
-            "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(parameters('names-nebbodoro-api-ai')).InstrumentationKey]",
+            "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(parameters('names-nebbodoro-ai')).InstrumentationKey]",
             "EventGrid__TopicEndpoint": "[reference(parameters('names-nebbodoro-eventgrid')).endpoint]",
             "EventGrid__TopicKey": "[listKeys(resourceId('Microsoft.EventGrid/topics', parameters('names-nebbodoro-eventgrid')), '2018-01-01').key1]"
+          }
+        }
+      ]
+    },
+    {
+      "apiVersion": "2016-09-01",
+      "name": "[parameters('names-nebbodoro-portal-sp')]",
+      "type": "Microsoft.Web/serverfarms",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "displayName": "[parameters('names-nebbodoro-portal-sp')]",
+        "Tier": "Front-end"
+      },
+      "sku": {
+        "name": "B1",
+        "capacity": 1
+      },
+      "properties": {
+        "name": "[parameters('names-nebbodoro-portal-sp')]"  
+      }
+    },
+    {
+      "apiVersion": "2016-08-01",
+      "name": "[parameters('names-nebbodoro-portal')]",
+      "type": "Microsoft.Web/sites",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', parameters('names-nebbodoro-portal-sp'))]": "Resource",
+        "displayName": "[parameters('names-nebbodoro-portal')]",
+        "Tier": "Front-end"
+      },
+      "dependsOn": [
+        "[concat('Microsoft.Web/serverfarms/', parameters('names-nebbodoro-portal-sp'))]",
+        "[resourceId('Microsoft.Sql/servers/', parameters('names-nebbodoro-sqlsvr'))]"
+      ],
+      "properties": {
+        "name": "[parameters('names-nebbodoro-portal')]",
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms/', parameters('names-nebbodoro-portal-sp'))]",
+        "siteConfig":{
+          "httpsOnly": true
+        }
+      },
+      "resources": [
+        {
+          "apiVersion": "2015-08-01",
+          "type": "config",
+          "name": "appSettings",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites/', parameters('names-nebbodoro-api'))]",
+            "[resourceId('Microsoft.insights/components/', parameters('names-nebbodoro-ai'))]"
+          ],
+          "properties": {
+            "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(parameters('names-nebbodoro-ai')).InstrumentationKey]" 
           }
         }
       ]
@@ -207,9 +275,13 @@
     }
   ],
   "outputs": {
-    "outputs-api-name": {
+    "ApiName": {
       "type": "string",
       "value": "[reference(parameters('names-nebbodoro-api')).deploymentId]"
+    },
+    "PortalName": {
+      "type": "string",
+      "value": "[reference(parameters('names-nebbodoro-portal')).deploymentId]"
     }
   }
 }
