@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nebbodoro.API", "src\Nebbodoro.API\Nebbodoro.API.csproj", "{8C49B2EE-D4E7-4AD3-91A3-38076D8579FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nebbodoro.API", "src\Nebbodoro.API\Nebbodoro.API.csproj", "{8C49B2EE-D4E7-4AD3-91A3-38076D8579FC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{899CFDB6-57D0-4468-BF95-A02053CEBF78}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{C838557F-C808-46CB-A400-399C35EB7744}"
 EndProject
 Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "Nebbodoro.ARM", "src\Nebbodoro.ARM\Nebbodoro.ARM.deployproj", "{9C21A3B1-9703-4170-8890-B4037718EE38}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Front-End", "Front-End", "{7E943FA6-BAD7-4D8C-BA69-9F0754E07C50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
