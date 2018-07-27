@@ -1,4 +1,4 @@
-# Nebbodoro Sample App (ASP.NET Core, Azure App Service, Event Grid) :tomato:
+# Azure Workshop - Nebbodro Sample App (Angular 6, ASP.NET Core, Azure App Service, Event Grid) :tomato:
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Ffgauna12%2FNebbodoro%2Fmaster%2Fsrc%2FNebbodoro.ARM%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
