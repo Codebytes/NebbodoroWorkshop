@@ -258,7 +258,7 @@
           "type": "config",
           "name": "appSettings",
           "dependsOn": [
-            "[resourceId('Microsoft.Web/Sites/', parameters('names-nebbodoro-api'))]",
+            "[resourceId('Microsoft.Web/Sites/', parameters('names-nebbodoro-portal'))]",
             "[resourceId('Microsoft.insights/components/', parameters('names-nebbodoro-ai'))]"
           ],
           "properties": {
