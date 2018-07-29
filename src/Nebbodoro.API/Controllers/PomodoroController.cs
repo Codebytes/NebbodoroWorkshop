@@ -15,9 +15,12 @@ namespace Nebbodoro.API.Controllers
         private readonly TelemetryClient _telemetryClient;
         private readonly EventGridManager _eventGridManager;
 
-        public PomodoroController(PomodoroContext pomodoroContext, TelemetryClient telemetryClientClient, EventGridManager eventGridManager)
+        public PomodoroController(
+            //PomodoroContext pomodoroContext, //TODO uncomment during the workshop data module
+            TelemetryClient telemetryClientClient, 
+            EventGridManager eventGridManager)
         {
-            _pomodoroContext = pomodoroContext;
+            //_pomodoroContext = pomodoroContext; //TODO uncomment during the workshop data module
             _telemetryClient = telemetryClientClient;
             _eventGridManager = eventGridManager;
         }
@@ -116,10 +119,13 @@ namespace Nebbodoro.API.Controllers
         [HttpPost]
         public IActionResult Post([FromRoute] string email)
         {
+            //TODO uncomment during the workshop data module
+            /*
             var user = _pomodoroContext.Users.FirstOrDefault(u => u.Email == email);
 
             if (user == null)
                 return NotFound();
+            */
 
             var pomodoro = new Pomodoro
             {
@@ -127,12 +133,15 @@ namespace Nebbodoro.API.Controllers
                 Start = DateTime.Now,
                 End = DateTime.Now,
                 Duration = 25,
-                User = user
+                //User = user //TODO uncomment during the workshop data module
             };
 
+            //TODO uncomment during the workshop data module
+            /*
             _pomodoroContext.Pomodoros.Add(pomodoro);
 
             _pomodoroContext.SaveChanges();
+            */
 
             _eventGridManager.OnPomodoroDone(pomodoro);
 
