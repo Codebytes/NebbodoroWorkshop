@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nebbodoro.API.EventGrid;
 using Swashbuckle.AspNetCore.Swagger;
+using Nebbodoro.API.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Nebbodoro.API
 {
